@@ -114,3 +114,45 @@ class GiantSpiderRoom extends EnemyRoom {
     }
   }
 }
+
+class FindDaggerRoom extends LootRoom {
+  constructor(x, y) {
+    super(x, y, new Dagger());
+  }
+
+  introText() {
+    if (this.item.pickedUp) {
+      return "This part of the cave is empty.";
+    } else {
+      return "You notice something shiny in the corner. <p> It's a dagger! You take it.</p>";
+    }
+  }
+}
+
+class StartingRoom extends MapTile {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  introText() {
+    return "You find yourself in a cave with a flickering torch on the wall. You can make out four paths, each equally dark and foreboding.";
+  }
+
+  modifyPlayer(player) {
+    // nothing is in this room
+  }
+}
+
+class LeaveCaveRoom extends MapTile {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  introText() {
+    return "You see a bright light in the distance... \n... it grows as you get closer! It's sunlight!\n\nVictory is yours!";
+  }
+
+  modifyPlayer(player) {
+    player.victory = true;
+  }
+}
