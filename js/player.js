@@ -90,3 +90,54 @@ class Player {
 }
 
 player = new Player();
+
+class Action {
+  constructor(method, name) {
+    this.method = method;
+    this.name = name;
+  }
+}
+
+class ViewInventory extends Action {
+  constructor(method, name) {
+    super(player.printInventory, "View Inventory");
+  }
+}
+
+class MoveSouth extends Action {
+  constructor(method, name) {
+    super(player.moveSouth, "Move south");
+  }
+}
+
+class MoveNorth extends Action {
+  constructor(method, name) {
+    super(player.moveNorth, "Move north");
+  }
+}
+
+class MoveEast extends Action {
+  constructor(method, name) {
+    super(player.moveEast, "Move east");
+  }
+}
+
+class MoveWest extends Action {
+  constructor(method, name) {
+    super(player.moveWest, "Move west");
+  }
+}
+
+class Attack extends Action {
+  constructor(method, name, enemy) {
+    super(player.attack, "Attack");
+    this.enemy = enemy;
+  }
+}
+
+class Flee extends Action {
+  constructor(method, name, tile) {
+    super(player.flee, "Flee");
+    this.tile = tile;
+  }
+}
