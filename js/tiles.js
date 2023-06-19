@@ -100,3 +100,17 @@ class EnemyRoom extends MapTile {
     }
   }
 }
+
+class GiantSpiderRoom extends EnemyRoom {
+  constructor(x, y) {
+    super(x, y, new GiantSpider());
+  }
+
+  introText() {
+    if (this.enemy.isAlive()) {
+      return "A giant spider jumps down from its web in front of you.";
+    } else {
+      return "The corpse of a dead spider rots on the ground.";
+    }
+  }
+}
