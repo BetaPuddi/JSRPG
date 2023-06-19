@@ -52,10 +52,51 @@ class EmptyCavePath extends MapTile {
   }
 
   introText() {
-    return "Aother unremarkable part of the cave. You must keep moving";
+    return "Another unremarkable part of the cave. You must keep moving";
   }
 
   modifyPlayer(player) {
     // this room does nothing to the player
+  }
+}
+
+class LootRoom extends MapTile {
+  constructor(x, y, item) {
+    super(x, y);
+    this.item = item;
+  }
+
+  addLoot(player) {
+    player.inventory.push(this.item);
+    this.item.pickedUp = true;
+  }
+
+  modifyPlayer(player) {
+    if (!this.item.pickedUp) {
+      this.addLoot(player);
+    }
+  }
+}
+
+class EnemyRoom extends MapTile {
+  constructor(x, y, enemy) {
+    super(x, y);
+    this.enemy = enemy;
+  }
+
+  modifyPlayer(player) {
+    if (this.enemy.isAlive()) {
+      player.hp = player.hp - this.enemy.damage;
+      let msg = `Enemy does ${this.enemy.damage} damage. You have ${player.hp} HP remaining.`;
+      addStoryText(msg);
+    }
+  }
+
+  availableActions() {
+    if (this.enemy.isAlive()) {
+      return [new Flee(), new Attack(this.enemy)];
+    } else {
+      return this.adjacentMoves();
+    }
   }
 }
